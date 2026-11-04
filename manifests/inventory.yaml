@@ -1,97 +1,116 @@
-# Hauler bundle inventory (ported from rke2-bundle-builder).
-# rewrite: destination path under TARGET_REGISTRY_BASE (ECR), and the path
-# Hauler serves on the bootstrap registry — keep hauler/<image-name>:<tag>.
+# Hauler inventory for cyber-radar-platform gitops (dso-stack-apps + cyber-radar-apps).
+# Image tags match chart appVersion / values defaults for the pinned HelmRelease versions.
+# rewrite: path Hauler serves on the bootstrap registry — hauler/<image-name>:<tag>
 inventory:
-  - name: cgr.dev/chainguard/static:latest
-    rewrite: hauler/static:latest
-  - name: docker.io/stefanprodan/podinfo:6.7.1
-    rewrite: hauler/podinfo-image:6.7.1
-  - name: registry1.dso.mil/ironbank/jetstack/cert-manager-controller:v1.20.3
-    rewrite: hauler/cert-manager-controller:v1.20.3
-  - name: registry1.dso.mil/ironbank/jetstack/cert-manager-webhook:v1.20.3
-    rewrite: hauler/cert-manager-webhook:v1.20.3
-  - name: registry1.dso.mil/ironbank/jetstack/cert-manager-cainjector:v1.20.3
-    rewrite: hauler/cert-manager-cainjector:v1.20.3
-  - name: registry1.dso.mil/ironbank/opensource/jetstack/cert-manager-acmesolver:v1.20.3
-    rewrite: hauler/cert-manager-acmesolver:v1.20.3
-  - name: artifactory.fusion.navy.mil/logit-oci/ci/longhornio/livenessprobe:v2.19.0
-    rewrite: hauler/livenessprobe:v2.19.0
-  - name: artifactory.fusion.navy.mil/logit-oci/ci/longhornio/longhorn-engine:v1.12.1
-    rewrite: hauler/longhorn-engine:v1.12.1
-  - name: artifactory.fusion.navy.mil/logit-oci/ci/longhornio/longhorn-manager:v1.12.1
-    rewrite: hauler/longhorn-manager:v1.12.1
-  - name: artifactory.fusion.navy.mil/logit-oci/ci/longhornio/longhorn-ui:v1.12.1
-    rewrite: hauler/longhorn-ui:v1.12.1
-  - name: artifactory.fusion.navy.mil/logit-oci/ci/longhornio/longhorn-instance-manager:v1.12.1
-    rewrite: hauler/longhorn-instance-manager:v1.12.1
-  - name: artifactory.fusion.navy.mil/logit-oci/ci/longhornio/longhorn-share-manager:v1.12.1
-    rewrite: hauler/longhorn-share-manager:v1.12.1
-  - name: artifactory.fusion.navy.mil/logit-oci/ci/longhornio/backing-image-manager:v1.12.1
-    rewrite: hauler/backing-image-manager:v1.12.1
-  - name: artifactory.fusion.navy.mil/logit-oci/ci/longhornio/support-bundle-kit:v0.0.92
-    rewrite: hauler/support-bundle-kit:v0.0.92
-  - name: artifactory.fusion.navy.mil/logit-oci/ci/longhornio/csi-attacher:v4.12.0
-    rewrite: hauler/csi-attacher:v4.12.0
-  - name: artifactory.fusion.navy.mil/logit-oci/ci/longhornio/csi-provisioner:v5.3.0
-    rewrite: hauler/csi-provisioner:v5.3.0
-  - name: artifactory.fusion.navy.mil/logit-oci/ci/longhornio/csi-node-driver-registrar:v2.17.0
-    rewrite: hauler/csi-node-driver-registrar:v2.17.0
-  - name: artifactory.fusion.navy.mil/logit-oci/ci/longhornio/csi-resizer:v2.2.1
-    rewrite: hauler/csi-resizer:v2.2.1
-  - name: artifactory.fusion.navy.mil/logit-oci/ci/longhornio/csi-snapshotter:v8.6.0
-    rewrite: hauler/csi-snapshotter:v8.6.0
-  - name: registry1.dso.mil/ironbank/opensource/kubevirt/virt-handler:v1.0.0
-    rewrite: hauler/virt-handler:v1.0.0
-  - name: registry1.dso.mil/ironbank/opensource/kubevirt/virt-api:v1.0.0
-    rewrite: hauler/virt-api:v1.0.0
-  - name: registry1.dso.mil/ironbank/opensource/kubevirt/virt-launcher:v1.0.0
-    rewrite: hauler/virt-launcher:v1.0.0
-  - name: registry1.dso.mil/ironbank/opensource/kubevirt/virt-controller:v1.0.0
-    rewrite: hauler/virt-controller:v1.0.0
-  - name: registry1.dso.mil/ironbank/opensource/kubevirt/cdi-apiserver:v1.57.0
-    rewrite: hauler/cdi-apiserver:v1.57.0
-  - name: registry1.dso.mil/ironbank/opensource/kubevirt/cdi-uploadserver:v1.57.0
-    rewrite: hauler/cdi-uploadserver:v1.57.0
-  - name: registry1.dso.mil/ironbank/opensource/kubevirt/cdi-importer:v1.57.0
-    rewrite: hauler/cdi-importer:v1.57.0
-  - name: registry1.dso.mil/ironbank/opensource/kubevirt/cdi-operator:v1.57.0
-    rewrite: hauler/cdi-operator:v1.57.0
-  - name: registry1.dso.mil/ironbank/opensource/kubevirt/cdi-controller:v1.57.0
-    rewrite: hauler/cdi-controller:v1.57.0
-  - name: registry1.dso.mil/ironbank/opensource/kubevirt/cdi-uploadproxy:v1.57.0
-    rewrite: hauler/cdi-uploadproxy:v1.57.0
-  - name: registry1.dso.mil/ironbank/opensource/kubevirt/cdi-cloner:v1.57.0
-    rewrite: hauler/cdi-cloner:v1.57.0
-  - name: registry1.dso.mil/ironbank/opensource/kubevirt/virt-operator:v1.0.0
-    rewrite: hauler/virt-operator:v1.0.0
-  - name: registry1.dso.mil/ironbank/redhat/ubi/ubi9-minimal:9.3
-    rewrite: hauler/ubi9-minimal:9.3
+  # --- dso-stack-apps/podinfo (chart 6.7.1) ---
+  - name: ghcr.io/stefanprodan/podinfo:6.7.1
+    rewrite: hauler/podinfo:6.7.1
+
+  # --- dso-stack-apps/cert-manager (chart v1.21.3) ---
+  - name: quay.io/jetstack/cert-manager-controller:v1.21.3
+    rewrite: hauler/cert-manager-controller:v1.21.3
+  - name: quay.io/jetstack/cert-manager-webhook:v1.21.3
+    rewrite: hauler/cert-manager-webhook:v1.21.3
+  - name: quay.io/jetstack/cert-manager-cainjector:v1.21.3
+    rewrite: hauler/cert-manager-cainjector:v1.21.3
+  - name: quay.io/jetstack/cert-manager-acmesolver:v1.21.3
+    rewrite: hauler/cert-manager-acmesolver:v1.21.3
+  - name: quay.io/jetstack/cert-manager-startupapicheck:v1.21.3
+    rewrite: hauler/cert-manager-startupapicheck:v1.21.3
+
+  # --- dso-stack-apps/external-dns (chart 1.23.0 → appVersion 0.23.0) ---
+  - name: registry.k8s.io/external-dns/external-dns:v0.23.0
+    rewrite: hauler/external-dns:v0.23.0
+
+  # --- dso-stack-apps/external-secrets (chart 2.14.0) ---
+  - name: ghcr.io/external-secrets/external-secrets:v2.14.0
+    rewrite: hauler/external-secrets:v2.14.0
+
+  # --- dso-stack-apps/grafana (chart 10.5.15 → appVersion 12.3.1) ---
+  - name: docker.io/grafana/grafana:12.3.1
+    rewrite: hauler/grafana:12.3.1
+  - name: docker.io/library/busybox:1.31.1
+    rewrite: hauler/busybox:1.31.1
+  - name: quay.io/kiwigrid/k8s-sidecar:2.5.0
+    rewrite: hauler/k8s-sidecar:2.5.0
+  - name: docker.io/bats/bats:v1.4.1
+    rewrite: hauler/bats:v1.4.1
+
+  # --- dso-stack-apps/alloy (chart 1.15.0 → appVersion v1.21.3) ---
+  - name: docker.io/grafana/alloy:v1.21.3
+    rewrite: hauler/alloy:v1.21.3
+  - name: quay.io/prometheus-operator/prometheus-config-reloader:v0.94.2@sha256:a1897c67478bc23434534e91ad3855280771196b1daf17144db9dbcb655bef71
+    rewrite: hauler/prometheus-config-reloader:v0.94.2
+
+  # --- dso-stack-apps/loki (chart 20.4.1 → appVersion 3.7.9; monolithic + gateway) ---
+  - name: docker.io/grafana/loki:3.7.9
+    rewrite: hauler/loki:3.7.9
+  - name: docker.io/nginxinc/nginx-unprivileged:1.31-alpine
+    rewrite: hauler/nginx-unprivileged:1.31-alpine
+
+  # --- dso-stack-apps/kube-prometheus-stack (chart 92.18.0 → operator appVersion v0.94.2) ---
+  - name: quay.io/prometheus/prometheus:v3.15.1-distroless
+    rewrite: hauler/prometheus:v3.15.1-distroless
+  - name: quay.io/prometheus/alertmanager:v0.34.2
+    rewrite: hauler/alertmanager:v0.34.2
+  - name: quay.io/prometheus/node-exporter:v1.12.1-distroless
+    rewrite: hauler/node-exporter:v1.12.1-distroless
+  - name: registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.20.0
+    rewrite: hauler/kube-state-metrics:v2.20.0
+  - name: quay.io/prometheus-operator/prometheus-operator:v0.94.2
+    rewrite: hauler/prometheus-operator:v0.94.2
+  # prometheus-config-reloader: shared with alloy (pinned digest above)
+  - name: quay.io/prometheus-operator/admission-webhook:v0.94.2
+    rewrite: hauler/admission-webhook:v0.94.2
+  - name: ghcr.io/jkroepke/kube-webhook-certgen:1.11.0
+    rewrite: hauler/kube-webhook-certgen:1.11.0
+
+  # --- cyber-radar-apps/envoy-gateway (oci gateway-helm v1.9.3) ---
+  - name: docker.io/envoyproxy/gateway:v1.9.3
+    rewrite: hauler/gateway:v1.9.3
+  - name: docker.io/envoyproxy/ratelimit:5ae0682e
+    rewrite: hauler/ratelimit:5ae0682e
+  # Default dataplane + shutdown-manager images built into Envoy Gateway v1.9.3
+  - name: docker.io/envoyproxy/envoy:distroless-v1.39.5@sha256:9d84a586119a27b50437dbb01eccd4722832741539b1ed53c8e9d6da6067a6e0
+    rewrite: hauler/envoy:distroless-v1.39.5
+  - name: docker.io/envoyproxy/gateway-dev:latest
+    rewrite: hauler/gateway-dev:latest
 
 charts:
-  - name: flux2
-    repo: https://fluxcd-community.github.io/helm-charts
-    chart: fluxcd-community/flux2
-    version: "2.19.0"
+  # --- dso-stack-apps ---
   - name: podinfo
     repo: https://stefanprodan.github.io/podinfo
     chart: podinfo/podinfo
     version: "6.7.1"
   - name: cert-manager
-    repo: https://repo1.dso.mil/big-bang/product/maintained/cert-manager.git
-    version: "v1.20.3-bb.0"
-  - name: aws-cloud-controller-manager
-    repo: https://kubernetes.github.io/cloud-provider-aws
-    chart: cloud-provider-aws/aws-cloud-controller-manager
-    version: "0.0.11"
-  - name: cluster-autoscaler
-    repo: https://kubernetes.github.io/autoscaler
-    chart: autoscaler/cluster-autoscaler
-    version: "9.59.0"
+    repo: https://charts.jetstack.io
+    chart: jetstack/cert-manager
+    version: "v1.21.3"
   - name: external-dns
     repo: https://kubernetes-sigs.github.io/external-dns/
     chart: external-dns/external-dns
-    version: "1.21.1"
-  - name: longhorn
-    repo: https://charts.longhorn.io
-    chart: longhorn/longhorn
-    version: "1.12.1"
+    version: "1.23.0"
+  - name: external-secrets
+    repo: https://charts.external-secrets.io
+    chart: external-secrets/external-secrets
+    version: "2.14.0"
+  - name: grafana
+    repo: https://grafana.github.io/helm-charts
+    chart: grafana/grafana
+    version: "10.5.15"
+  - name: alloy
+    repo: https://grafana.github.io/helm-charts
+    chart: grafana/alloy
+    version: "1.15.0"
+  - name: loki
+    repo: https://grafana-community.github.io/helm-charts
+    chart: grafana-community/loki
+    version: "20.4.1"
+  - name: kube-prometheus-stack
+    repo: https://prometheus-community.github.io/helm-charts
+    chart: prometheus-community/kube-prometheus-stack
+    version: "92.18.0"
+  # --- cyber-radar-apps ---
+  - name: gateway-helm
+    repo: oci://docker.io/envoyproxy/gateway-helm
+    version: "v1.9.3"
