@@ -65,6 +65,10 @@ inventory:
   - name: ghcr.io/jkroepke/kube-webhook-certgen:1.11.0
     rewrite: hauler/kube-webhook-certgen:1.11.0
 
+  # --- dso-stack-apps/aws-load-balancer-controller (chart 3.6.2) ---
+  - name: public.ecr.aws/eks/aws-load-balancer-controller:v3.6.2
+    rewrite: hauler/aws-load-balancer-controller:v3.6.2
+
   # --- cyber-radar-apps/envoy-gateway (oci gateway-helm v1.9.3) ---
   - name: docker.io/envoyproxy/gateway:v1.9.3
     rewrite: hauler/gateway:v1.9.3
@@ -110,6 +114,10 @@ charts:
     repo: https://prometheus-community.github.io/helm-charts
     chart: prometheus-community/kube-prometheus-stack
     version: "92.18.0"
+  - name: aws-load-balancer-controller
+    repo: https://aws.github.io/eks-charts
+    chart: eks/aws-load-balancer-controller
+    version: "3.6.2"
   # --- cyber-radar-apps ---
   - name: gateway-helm
     repo: oci://docker.io/envoyproxy/gateway-helm
