@@ -1,0 +1,42 @@
+version: 0.2
+
+# Build a Hauler haul from manifests/inventory.yaml and upload it to S3.
+
+env:
+  variables:
+    INVENTORY_MANIFEST: manifests/inventory.yaml
+    HAULER_ARTIFACT_NAME: rke2-bootstrap
+    ARTIFACT_PREFIX: hauler-bundles
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.12
+    commands:
+      - bash scripts/install-tools.sh
+  pre_build:
+    commands:
+      - |
+        export COMMIT_SHA="${CODEBUILD_RESOLVED_SOURCE_VERSION:-unknown}"
+        export COMMIT_SHORT_SHA="${COMMIT_SHA:0:7}"
+        export DATE="$(date +%Y%m%d)"
+        echo "COMMIT_SHORT_SHA=${COMMIT_SHORT_SHA}"
+        echo "DATE=${DATE}"
+        echo "ARTIFACT_BUCKET=${ARTIFACT_BUCKET}"
+  build:
+    commands:
+      - bash scripts/bundle.sh
+  post_build:
+    commands:
+      - |
+        if [ -f hauler.env ]; then
+          cat hauler.env
+        fi
+
+artifacts:
+  files:
+    - hauler.env
+    - hauler/store.yaml
+    - '*.tar.zst'
+  name: hauler-bundle-$(date +%Y%m%d%H%M%S)
+  discard-paths: no

@@ -1,0 +1,97 @@
+# Hauler bundle inventory (ported from rke2-bundle-builder).
+# rewrite: destination path under TARGET_REGISTRY_BASE (ECR), and the path
+# Hauler serves on the bootstrap registry — keep hauler/<image-name>:<tag>.
+inventory:
+  - name: cgr.dev/chainguard/static:latest
+    rewrite: hauler/static:latest
+  - name: docker.io/stefanprodan/podinfo:6.7.1
+    rewrite: hauler/podinfo-image:6.7.1
+  - name: registry1.dso.mil/ironbank/jetstack/cert-manager-controller:v1.20.3
+    rewrite: hauler/cert-manager-controller:v1.20.3
+  - name: registry1.dso.mil/ironbank/jetstack/cert-manager-webhook:v1.20.3
+    rewrite: hauler/cert-manager-webhook:v1.20.3
+  - name: registry1.dso.mil/ironbank/jetstack/cert-manager-cainjector:v1.20.3
+    rewrite: hauler/cert-manager-cainjector:v1.20.3
+  - name: registry1.dso.mil/ironbank/opensource/jetstack/cert-manager-acmesolver:v1.20.3
+    rewrite: hauler/cert-manager-acmesolver:v1.20.3
+  - name: artifactory.fusion.navy.mil/logit-oci/ci/longhornio/livenessprobe:v2.19.0
+    rewrite: hauler/livenessprobe:v2.19.0
+  - name: artifactory.fusion.navy.mil/logit-oci/ci/longhornio/longhorn-engine:v1.12.1
+    rewrite: hauler/longhorn-engine:v1.12.1
+  - name: artifactory.fusion.navy.mil/logit-oci/ci/longhornio/longhorn-manager:v1.12.1
+    rewrite: hauler/longhorn-manager:v1.12.1
+  - name: artifactory.fusion.navy.mil/logit-oci/ci/longhornio/longhorn-ui:v1.12.1
+    rewrite: hauler/longhorn-ui:v1.12.1
+  - name: artifactory.fusion.navy.mil/logit-oci/ci/longhornio/longhorn-instance-manager:v1.12.1
+    rewrite: hauler/longhorn-instance-manager:v1.12.1
+  - name: artifactory.fusion.navy.mil/logit-oci/ci/longhornio/longhorn-share-manager:v1.12.1
+    rewrite: hauler/longhorn-share-manager:v1.12.1
+  - name: artifactory.fusion.navy.mil/logit-oci/ci/longhornio/backing-image-manager:v1.12.1
+    rewrite: hauler/backing-image-manager:v1.12.1
+  - name: artifactory.fusion.navy.mil/logit-oci/ci/longhornio/support-bundle-kit:v0.0.92
+    rewrite: hauler/support-bundle-kit:v0.0.92
+  - name: artifactory.fusion.navy.mil/logit-oci/ci/longhornio/csi-attacher:v4.12.0
+    rewrite: hauler/csi-attacher:v4.12.0
+  - name: artifactory.fusion.navy.mil/logit-oci/ci/longhornio/csi-provisioner:v5.3.0
+    rewrite: hauler/csi-provisioner:v5.3.0
+  - name: artifactory.fusion.navy.mil/logit-oci/ci/longhornio/csi-node-driver-registrar:v2.17.0
+    rewrite: hauler/csi-node-driver-registrar:v2.17.0
+  - name: artifactory.fusion.navy.mil/logit-oci/ci/longhornio/csi-resizer:v2.2.1
+    rewrite: hauler/csi-resizer:v2.2.1
+  - name: artifactory.fusion.navy.mil/logit-oci/ci/longhornio/csi-snapshotter:v8.6.0
+    rewrite: hauler/csi-snapshotter:v8.6.0
+  - name: registry1.dso.mil/ironbank/opensource/kubevirt/virt-handler:v1.0.0
+    rewrite: hauler/virt-handler:v1.0.0
+  - name: registry1.dso.mil/ironbank/opensource/kubevirt/virt-api:v1.0.0
+    rewrite: hauler/virt-api:v1.0.0
+  - name: registry1.dso.mil/ironbank/opensource/kubevirt/virt-launcher:v1.0.0
+    rewrite: hauler/virt-launcher:v1.0.0
+  - name: registry1.dso.mil/ironbank/opensource/kubevirt/virt-controller:v1.0.0
+    rewrite: hauler/virt-controller:v1.0.0
+  - name: registry1.dso.mil/ironbank/opensource/kubevirt/cdi-apiserver:v1.57.0
+    rewrite: hauler/cdi-apiserver:v1.57.0
+  - name: registry1.dso.mil/ironbank/opensource/kubevirt/cdi-uploadserver:v1.57.0
+    rewrite: hauler/cdi-uploadserver:v1.57.0
+  - name: registry1.dso.mil/ironbank/opensource/kubevirt/cdi-importer:v1.57.0
+    rewrite: hauler/cdi-importer:v1.57.0
+  - name: registry1.dso.mil/ironbank/opensource/kubevirt/cdi-operator:v1.57.0
+    rewrite: hauler/cdi-operator:v1.57.0
+  - name: registry1.dso.mil/ironbank/opensource/kubevirt/cdi-controller:v1.57.0
+    rewrite: hauler/cdi-controller:v1.57.0
+  - name: registry1.dso.mil/ironbank/opensource/kubevirt/cdi-uploadproxy:v1.57.0
+    rewrite: hauler/cdi-uploadproxy:v1.57.0
+  - name: registry1.dso.mil/ironbank/opensource/kubevirt/cdi-cloner:v1.57.0
+    rewrite: hauler/cdi-cloner:v1.57.0
+  - name: registry1.dso.mil/ironbank/opensource/kubevirt/virt-operator:v1.0.0
+    rewrite: hauler/virt-operator:v1.0.0
+  - name: registry1.dso.mil/ironbank/redhat/ubi/ubi9-minimal:9.3
+    rewrite: hauler/ubi9-minimal:9.3
+
+charts:
+  - name: flux2
+    repo: https://fluxcd-community.github.io/helm-charts
+    chart: fluxcd-community/flux2
+    version: "2.19.0"
+  - name: podinfo
+    repo: https://stefanprodan.github.io/podinfo
+    chart: podinfo/podinfo
+    version: "6.7.1"
+  - name: cert-manager
+    repo: https://repo1.dso.mil/big-bang/product/maintained/cert-manager.git
+    version: "v1.20.3-bb.0"
+  - name: aws-cloud-controller-manager
+    repo: https://kubernetes.github.io/cloud-provider-aws
+    chart: cloud-provider-aws/aws-cloud-controller-manager
+    version: "0.0.11"
+  - name: cluster-autoscaler
+    repo: https://kubernetes.github.io/autoscaler
+    chart: autoscaler/cluster-autoscaler
+    version: "9.59.0"
+  - name: external-dns
+    repo: https://kubernetes-sigs.github.io/external-dns/
+    chart: external-dns/external-dns
+    version: "1.21.1"
+  - name: longhorn
+    repo: https://charts.longhorn.io
+    chart: longhorn/longhorn
+    version: "1.12.1"

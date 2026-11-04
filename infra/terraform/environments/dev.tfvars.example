@@ -1,0 +1,19 @@
+aws_region   = "us-east-1"
+project_name = "hauler-bundle"
+environment  = "dev"
+
+github_owner            = "crispysipper"
+github_repo             = "codepipeline-hauler-bundle"
+github_branch           = "main"
+codestar_connection_arn = "arn:aws:codestar-connections:us-east-1:123456789012:connection/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+
+hauler_artifact_name = "rke2-bootstrap"
+inventory_manifest   = "manifests/inventory.yaml"
+
+# Optional: Secrets Manager secret whose value is a Docker config.json for
+# Iron Bank / Docker Hub / private registry pulls during hauler store sync.
+# docker_config_json_secret_arn = "arn:aws:secretsmanager:us-east-1:123456789012:secret:hauler/docker-config-XXXX"
+
+tags = {
+  Owner = "platform"
+}
